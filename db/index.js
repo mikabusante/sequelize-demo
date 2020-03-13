@@ -9,15 +9,15 @@ const Pet = db.define("pets", {
   },
   age: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true
   },
   species: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   color: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   }
 });
 
@@ -26,19 +26,17 @@ const Owner = db.define("owners", {
     type: Sequelize.STRING,
     allowNull: false
   },
-  age: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
+
   location: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false
   }
 });
 
+// sorry, this is wrong --> Pet.hasOne(Owner), look at seq docs (https://sequelize.org/master/manual/assocs.html);
 Owner.hasMany(Pet);
-Pet.hasOne(Owner);
+Pet.belongsTo(Owner);
 
-// const Basil = Pet.build({})
+// const Basil = Pet.build({});
 
 module.exports = { db, Pet, Owner };
